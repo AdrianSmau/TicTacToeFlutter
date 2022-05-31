@@ -135,8 +135,8 @@ class _MultiplayerPageState extends State<MultiplayerPage> {
                   padding: const EdgeInsets.only(top: 15.0),
                   child: Text(
                       isXTurn
-                          ? "[Player1's turn] Awaiting X move!"
-                          : "[Player2's turn] Awaiting O move!",
+                          ? "[Player1 turn] Awaiting X move!"
+                          : "[Player2 turn] Awaiting O move!",
                       style: GoogleFonts.novaSlim(
                           textStyle: const TextStyle(
                               color: Colors.black, fontSize: 24))),
