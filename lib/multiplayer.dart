@@ -268,7 +268,6 @@ class _MultiplayerPageState extends State<MultiplayerPage> {
               ),
               OutlinedButton(
                   onPressed: () {
-                    _clearBoard();
                     Navigator.of(context)
                       ..pop()
                       ..pop();

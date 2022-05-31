@@ -2,6 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/cpu.dart';
 import 'package:tic_tac_toe/multiplayer.dart';
 
 void main() {
@@ -110,7 +111,7 @@ class _MainMenuState extends State<MainMenu> {
                       child: const Text('Multiplayer Mode'),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _showDifficultyModal(),
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size(0.0, 48.0),
                           shape: RoundedRectangleBorder(
@@ -121,7 +122,7 @@ class _MainMenuState extends State<MainMenu> {
                           textStyle: GoogleFonts.novaSlim(
                               textStyle: const TextStyle(
                                   color: Colors.black, fontSize: 30))),
-                      child: const Text('AI difficulty mode'),
+                      child: const Text('CPU Mode'),
                     )
                   ],
                 )),
@@ -138,5 +139,94 @@ class _MainMenuState extends State<MainMenu> {
         ),
       ),
     );
+  }
+
+  void _showDifficultyModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          bool playerIsFirst = true;
+          return StatefulBuilder(builder: (context, setState) {
+            return SimpleDialog(
+              insetPadding: const EdgeInsets.only(
+                  top: 15.0, bottom: 15.0, left: 2.5, right: 2.5),
+              title: Text("Select CPU difficulty!",
+                  style: GoogleFonts.pressStart2p(
+                      textStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14))),
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CpuPage(1, playerIsFirst)));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      onPrimary: Colors.black,
+                      textStyle: GoogleFonts.pressStart2p(
+                          textStyle: const TextStyle(
+                              color: Colors.black, fontSize: 14))),
+                  child: const Text('Easy'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CpuPage(2, playerIsFirst)));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.yellow,
+                      onPrimary: Colors.black,
+                      textStyle: GoogleFonts.pressStart2p(
+                          textStyle: const TextStyle(
+                              color: Colors.black, fontSize: 14))),
+                  child: const Text('Medium'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CpuPage(3, playerIsFirst)));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      onPrimary: Colors.black,
+                      textStyle: GoogleFonts.pressStart2p(
+                          textStyle: const TextStyle(
+                              color: Colors.black, fontSize: 14))),
+                  child: const Text('Hard'),
+                ),
+                SwitchListTile(
+                    title: Text(
+                        playerIsFirst ? "Player goes first" : "CPU goes first",
+                        style: GoogleFonts.pressStart2p(
+                            textStyle: const TextStyle(
+                                color: Colors.black, fontSize: 14))),
+                    activeColor: Colors.deepPurple[300],
+                    value: playerIsFirst,
+                    onChanged: (isOn) => setState(() {
+                          playerIsFirst = isOn;
+                        })),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.black,
+                      onPrimary: Colors.white,
+                      textStyle: GoogleFonts.pressStart2p(
+                          textStyle: const TextStyle(
+                              color: Colors.black, fontSize: 14))),
+                  child: const Text('Close'),
+                )
+              ],
+            );
+          });
+        });
   }
 }
